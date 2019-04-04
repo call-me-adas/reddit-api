@@ -7,7 +7,7 @@ import {getAuthToken} from '@logic/store';
 import {first, mergeMap} from 'rxjs/operators';
 import {Token} from '@logic/models/token';
 import {environment} from '@env/environment';
-import {UserRefreshToken} from '@logic/actions/auth.action';
+import {UserRefreshToken} from '@logic/actions/list.action';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {

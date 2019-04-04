@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {environment} from '@env/environment';
 import {catchError} from 'rxjs/internal/operators';
 import {Store} from '@ngrx/store';
-import {UserLogout} from '@logic/actions/auth.action';
+import {UserLogout} from '@logic/actions/list.action';
 
 /**
  * Adds a default error handler to all requests.
