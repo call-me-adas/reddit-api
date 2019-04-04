@@ -1,0 +1,29 @@
+<div fxFlex class="app-wrapper">
+    <mat-sidenav-container fxFill>
+        <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" [disableClose]="!isMobile"
+                     ngClass.gt-sm="has-border">
+            <mat-toolbar color="primary">
+                <img src="assets/reddit-square.png" class="logo-container" />
+            </mat-toolbar>
+            <nav>
+                <mat-list>
+                    <ng-container *ngFor="let item of categories">
+                        <mat-divider></mat-divider>
+                        <a mat-list-item [routerLink]='["/subreddits/", item]' routerLinkActive="active" (click)="isMobile && sidenav.close()">
+                            <span>{{item}}</span>
+                        </a>
+                    </ng-container>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </nav>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-toolbar color="primary" class="mat-elevation-z6">
+                <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </mat-toolbar>
+           <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
