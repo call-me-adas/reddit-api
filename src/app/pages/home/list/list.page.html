@@ -1,10 +1,10 @@
 <div class="container">
-    <mat-card>
-        <h1>
-            <mat-card-title>naglowek</mat-card-title>
-        </h1>
-        <mat-card-content>
-            <span>Version {{category}}</span>
-        </mat-card-content>
+    <mat-card *ngFor="let news of this.list$ | async" class="card-container">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h2 fxFlex="70%">{{news.data.title}}</h2>
+            <div fxFlex="20%" class="thumbnail-container">
+                <img src={{news.data.thumbnail}} class="thumbnail" />
+            </div>
+        </div>
     </mat-card>
 </div>

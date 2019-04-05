@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import {environment} from "@env/environment";
 
 const routes = {
-  quote: (c: RandomQuoteContext) => `/jokes/random?category=${c.category}`
+  getNews: (c: ListContext) => `${environment.serverUrl}/r/${c.category}/new.json`
 };
 
-export interface RandomQuoteContext {
-  // The list's category: 'dev', 'explicit'...
+export interface ListContext {
   category: string;
 }
 
@@ -16,12 +16,11 @@ export interface RandomQuoteContext {
 export class ListService {
   constructor(private httpClient: HttpClient) {}
 
-  getRandomQuote(context: RandomQuoteContext): Observable<string> {
+  getNews(context: ListContext): Observable<string> {
     return this.httpClient.cache()
-      .get(routes.quote(context))
-      .pipe(
-        map((body: any) => body.value),
-        catchError(() => of('Error, could not load joke :-('))
+      .get(routes.getNews(context))
+      .pipe( map((body: any) => body),
+        catchError(() => of('Error, could not load news'))
       );
   }
 }

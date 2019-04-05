@@ -1,111 +1,35 @@
 import {Action} from '@ngrx/store';
-import {Token} from '@logic/models/token';
+import {NewsModel} from "@logic/models/news.model";
 
-export const USER_LOGIN = '[Auth] USER_LOGIN';
-export const USER_LOGIN_SUCCESS = '[Auth] USER_LOGIN_SUCCESS';
-export const USER_LOGIN_FAIL = '[Auth] USER_LOGIN_FAILED';
-
-export const USER_REFRESH_TOKEN = '[Auth] USER_REFRESH_TOKEN';
-export const USER_REFRESH_TOKEN_SUCCESS = '[Auth] USER_REFRESH_TOKEN_SUCCESS';
-export const USER_REFRESH_TOKEN_FAIL = '[Auth] USER_REFRESH_TOKEN_FAILED';
-
-export const USER_FETCH_PERMISSIONS = '[Auth] USER_FETCH_PERMISSIONS';
-export const USER_FETCH_PERMISSIONS_SUCCESS = '[Auth] USER_FETCH_PERMISSIONS_SUCCESS';
-export const USER_FETCH_PERMISSIONS_FAIL = '[Auth] USER_FETCH_PERMISSIONS_FAIL';
-
-export const USER_RESTORE_SESSION = '[Auth] USER_RESTORE_SESSION';
-
-export const USER_LOGOUT = '[Auth] USER_LOGOUT';
+export const FETCH_NEWS = '[Auth] FETCH_NEWS';
+export const FETCH_NEWS_SUCCESS = '[Auth] FETCH_NEWS_SUCCESS';
+export const FETCH_NEWS_FAIL = '[Auth] FETCH_NEWS_FAIL';
 
 
-export class UserLogin implements Action {
-    readonly type = USER_LOGIN;
+export class FetchNews implements Action {
+    readonly type = FETCH_NEWS;
 
-    constructor(public payload: { password: string, username: string, remember?: boolean }) {
+    constructor(public payload: { category: string } = null) {
     }
 }
 
-export class UserLoginSuccess implements Action {
-    readonly type = USER_LOGIN_SUCCESS;
+export class FetchNewsSuccess implements Action {
+    readonly type = FETCH_NEWS_SUCCESS;
 
-    constructor(public payload: any, public remember = false) {
+    constructor(public payload: Array<NewsModel>) {
     }
 }
 
-export class UserLoginFail implements Action {
-    readonly type = USER_LOGIN_FAIL;
+export class FetchNewsFail implements Action {
+    readonly type = FETCH_NEWS_FAIL;
 
     constructor(public payload: any) {
     }
-}
 
-export class UserRestoreSession implements Action {
-    readonly type = USER_RESTORE_SESSION;
-
-    constructor(public token: Token) {
-    }
-}
-
-export class UserRefreshToken implements Action {
-    readonly type = USER_REFRESH_TOKEN;
-
-    constructor() {
-    }
-}
-
-export class UserRefreshTokenSuccess implements Action {
-    readonly type = USER_REFRESH_TOKEN_SUCCESS;
-
-    constructor(payload: any) {
-    }
-}
-
-export class UserRefreshTokenFail implements Action {
-    readonly type = USER_REFRESH_TOKEN_FAIL;
-
-    constructor(error: any) {
-    }
-}
-
-export class UserLogout implements Action {
-    readonly type = USER_LOGOUT;
-
-    constructor() {
-    }
-}
-
-
-export class UserFetchPermissions implements Action {
-    readonly type = USER_FETCH_PERMISSIONS;
-
-    constructor() {
-    }
-}
-
-export class UserFetchPermissionsSuccess implements Action {
-    readonly type = USER_FETCH_PERMISSIONS_SUCCESS;
-
-    constructor(public payload: string[]) {
-    }
-}
-
-export class UserFetchPermissionsFail implements Action {
-    readonly type = USER_FETCH_PERMISSIONS_FAIL;
-
-    constructor(public error: any) {
-    }
 }
 
 
 export type Actions =
-    | UserLogin
-    | UserLoginSuccess
-    | UserLoginFail
-    | UserFetchPermissions
-    | UserFetchPermissionsSuccess
-    | UserFetchPermissionsFail
-    | UserRestoreSession
-    | UserLogout
-    | UserRefreshToken
-    | UserRefreshTokenSuccess
-    | UserRefreshTokenFail;
+    | FetchNews
+    | FetchNewsSuccess
+    | FetchNewsFail;

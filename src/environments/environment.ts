@@ -4,10 +4,6 @@
 // The list of which env maps to which file can be found in `.angular.json`.
 
 export const environment = {
-    version: '1.0.0',
     production: false,
-    serverUrl: 'https://localhost:8080/api',
-    defaultLanguage: 'en-US',
-    supportedLanguages: ['en-US', 'fr-FR'],
-    jwtExpirationTime: 10800
+    serverUrl: 'https://www.reddit.com'
 };

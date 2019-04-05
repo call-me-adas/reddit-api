@@ -12,6 +12,6 @@ export const reducers: ActionReducerMap<AppState> = {
 /* MAIN SELECTORS */
 export const getListState = createFeatureSelector<AppState>('list');
 
-/* Auth */
-export const getListELement = createSelector(getListState, fromList.getAuthToken);
+/* News */
+export const getNews = createSelector(getListState, fromList.getNews);
 

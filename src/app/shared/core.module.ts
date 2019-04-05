@@ -6,12 +6,10 @@ import {CacheInterceptor} from '@shared/interceptors/http/cache.interceptor';
 import {ErrorHandlerInterceptor} from '@shared/interceptors/http/error-handler.interceptor';
 import {ApiPrefixInterceptor} from '@shared/interceptors/http/api-prefix.interceptor';
 import {HttpCacheService} from '@shared/interceptors/http/http-cache.service';
-import {RouteReuseStrategy, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {JwtInterceptor} from '@shared/interceptors/http/jwt.incerceptor';
-import {RefreshTokenInterceptor} from '@shared/interceptors/http/refresh-token.interceptor';
 
 @NgModule({
   imports: [
@@ -27,8 +25,6 @@ import {RefreshTokenInterceptor} from '@shared/interceptors/http/refresh-token.i
       ApiPrefixInterceptor,
       ErrorHandlerInterceptor,
       CacheInterceptor,
-      {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true},
-      {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
       {
           provide: HttpClient,
           useClass: HttpService
