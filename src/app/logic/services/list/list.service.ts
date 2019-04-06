@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import {environment} from '@env/environment';
 
 interface ListContext {
@@ -21,28 +20,16 @@ const routes = {
 export class ListService {
   constructor(private httpClient: HttpClient) {}
 
-  getNews(context: ListContext): Observable<{data}> {
-    return this.httpClient
-      .get(routes.getNews(context))
-      .pipe( map((body: {data}) => body.data),
-        catchError(() => of('Error, could not load news'))
-      );
+  getNews(context: ListContext): Observable<Object> {
+    return this.httpClient.get(routes.getNews(context));
   }
 
-  addNews(context: ListContext): Observable<{data}> {
+  addNews(context: ListContext): Observable<Object> {
     const MainContext = context.query === '' ? routes.addNews(context) : routes.addNewsQuery(context);
-    return this.httpClient
-      .get(MainContext)
-      .pipe( map((body: {data}) => body.data),
-        catchError(() => of('Error, could not load news'))
-      );
+    return this.httpClient.get(MainContext)
   }
 
-  getNewsByQuery(context: ListContext): Observable<{data}> {
-    return this.httpClient
-      .get(routes.getNewsByQuery(context))
-      .pipe( map((body: {data}) => body.data),
-        catchError(() => of('Error, could not load news'))
-      );
+  getNewsByQuery(context: ListContext): Observable<Object> {
+    return this.httpClient.get(routes.getNewsByQuery(context))
   }
 }

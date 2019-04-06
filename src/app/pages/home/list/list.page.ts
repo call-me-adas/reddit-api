@@ -27,7 +27,6 @@ export class ListPage implements OnInit, OnDestroy {
                 this.urlParams.query = data.value;
                 this.store.dispatch(new FetchNewsByQuery(this.urlParams));
             });
-
     }
 
     onScrollDown() {

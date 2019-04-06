@@ -7,14 +7,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ArticlePage } from './article.page';
+import {Component, Input} from "@angular/core";
 import {CommentComponent} from "@pages/home/article/comments.component";
-import {By} from "@angular/platform-browser";
-import {DebugElement} from "@angular/core";
 
-describe('ArticlePage', () => {
-    let component: ArticlePage;
-    let commentsEl: DebugElement;
-    let fixture: ComponentFixture<ArticlePage>;
+describe('CommentsCompoennt', () => {
+    let component: CommentComponent;
+    let fixture: ComponentFixture<TestCommentComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -26,16 +24,13 @@ describe('ArticlePage', () => {
                 ReactiveFormsModule,
                 CoreModule
             ],
-            declarations: [ArticlePage, CommentComponent]
+            declarations: [CommentComponent, TestCommentComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ArticlePage);
-        component = fixture.componentInstance;
-        commentsEl  = fixture.debugElement.query(By.css('.comments-element')); // find hero element
-        commentsEl.nativeElement.comments = [];
-
+        fixture = TestBed.createComponent(TestCommentComponent);
+        component = fixture.debugElement.children[0].componentInstance;
         fixture.detectChanges();
     });
 
@@ -44,3 +39,11 @@ describe('ArticlePage', () => {
     });
 });
 
+
+@Component({
+    selector: 'test-component-comment',
+    template: '<comments [comments]="comments"></comments>'
+})
+class TestCommentComponent {
+    comments = [];
+}

@@ -11,7 +11,7 @@
     </mat-card>
 
     <mat-card class="card-container">
-        <comments [comments]="(comments$ | async)"></comments>
+        <comments class="comments-element" [comments]="(comments$ | async)"></comments>
     </mat-card>
 <!--    <mat-card *ngFor="let news of this.list$ | async  | orderBy: 'data.created_utc': true" class="card-container">-->
 <!--        <div fxLayout="row" fxLayoutAlign="space-between">-->

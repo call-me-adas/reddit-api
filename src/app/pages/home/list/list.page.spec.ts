@@ -7,8 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ListPage } from './list.page';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {OrderModule} from "ngx-order-pipe";
 
-describe('HomeComponent', () => {
+describe('ListPage', () => {
     let component: ListPage;
     let fixture: ComponentFixture<ListPage>;
 
@@ -18,6 +20,8 @@ describe('HomeComponent', () => {
                 BrowserAnimationsModule,
                 FlexLayoutModule,
                 SharedModule,
+                InfiniteScrollModule,
+                OrderModule,
                 RouterTestingModule,
                 ReactiveFormsModule,
                 CoreModule

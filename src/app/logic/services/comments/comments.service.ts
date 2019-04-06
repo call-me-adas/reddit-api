@@ -17,10 +17,7 @@ const routes = {
 export class CommentsService {
   constructor(private httpClient: HttpClient) {}
 
-  getArticleComments(context: CommentsContext): Observable<Array<{data}> | string> {
-    return this.httpClient.get(routes.getComments(context))
-      .pipe( map((body: Array<{data}>) => body),
-        catchError(() => of('Error, could not load comments'))
-      );
+  getArticleComments(context: CommentsContext): Observable<Object> {
+    return this.httpClient.get(routes.getComments(context));
   }
 }
