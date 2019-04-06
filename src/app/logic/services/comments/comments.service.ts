@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import {environment} from "@env/environment";
+import {environment} from '@env/environment';
 
 interface CommentsContext {
-  category: string,
-  id: string
+  category: string;
+  id: string;
 }
 
 const routes = {
@@ -17,11 +17,10 @@ const routes = {
 export class CommentsService {
   constructor(private httpClient: HttpClient) {}
 
-  getArticleComments(context: CommentsContext): Observable<string> {
-    return this.httpClient
-      .get(routes.getComments(context))
-      .pipe( map((body: any) => body),
-        catchError(() => of('Error, could not load news'))
+  getArticleComments(context: CommentsContext): Observable<Array<{data}> | string> {
+    return this.httpClient.get(routes.getComments(context))
+      .pipe( map((body: Array<{data}>) => body),
+        catchError(() => of('Error, could not load comments'))
       );
   }
 }

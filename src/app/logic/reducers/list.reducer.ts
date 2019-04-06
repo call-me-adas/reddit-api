@@ -1,5 +1,5 @@
-import {ADD_NEWS_SUCCESS, FETCH_NEWS_SUCCESS, SET_LAST_ITEM} from "@logic/actions/list.action";
-import {NewsModel} from "@logic/models/news.model";
+import {ADD_NEWS_SUCCESS, FETCH_NEWS_SUCCESS, SET_LAST_ITEM} from '@logic/actions/list.action';
+import {NewsModel} from '@logic/models/news.model';
 
 export interface State {
     news: Array<NewsModel>;

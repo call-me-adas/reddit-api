@@ -1,8 +1,10 @@
-import {FETCH_ARTICLE_SUCCESS, FETCH_COMMENTS_SUCCESS} from "@logic/actions/comments.action";
+import {FETCH_ARTICLE_SUCCESS, FETCH_COMMENTS_SUCCESS} from '@logic/actions/comments.action';
+import {ArticleModel} from '@logic/models/article.model';
+import {CommentModel} from '@logic/models/comment.model';
 
 export interface State {
-    article: any
-    comments: any;
+    article: ArticleModel;
+    comments: CommentModel;
 }
 
 const INITIAL_STATE: State = {

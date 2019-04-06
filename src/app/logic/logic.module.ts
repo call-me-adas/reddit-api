@@ -5,7 +5,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import { StoreModule} from '@ngrx/store';
 import {reducers} from './store';
 import {ListEffects} from '@logic/effects/list.effects';
-import {CommentsEffects} from "@logic/effects/comments.effects";
+import {CommentsEffects} from '@logic/effects/comments.effects';
 
 @NgModule({
     imports: [

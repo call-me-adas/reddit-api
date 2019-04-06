@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {NewsModel} from "@logic/models/news.model";
+import {NewsModel} from '@logic/models/news.model';
 
 export const ADD_NEWS = '[List] ADD_NEWS';
 export const ADD_NEWS_SUCCESS = '[List] ADD_NEWS_SUCCESS';
@@ -13,7 +13,7 @@ export const SET_LAST_ITEM = '[List] SET_LAST_ITEM';
 export class SetLastItem implements Action {
     readonly type = SET_LAST_ITEM;
 
-    constructor(public payload: any) {
+    constructor(public payload: string) {
     }
 }
 
@@ -55,7 +55,7 @@ export class AddNewsSuccess implements Action {
 export class FetchNewsFail implements Action {
     readonly type = FETCH_NEWS_FAIL;
 
-    constructor(public payload: any) {
+    constructor() {
     }
 
 }

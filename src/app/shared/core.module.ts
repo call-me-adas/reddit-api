@@ -1,11 +1,6 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {LogicModule} from '@logic/logic.module';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
-import {HttpService} from '@shared/interceptors/http/http.service';
-import {CacheInterceptor} from '@shared/interceptors/http/cache.interceptor';
-import {ErrorHandlerInterceptor} from '@shared/interceptors/http/error-handler.interceptor';
-import {ApiPrefixInterceptor} from '@shared/interceptors/http/api-prefix.interceptor';
-import {HttpCacheService} from '@shared/interceptors/http/http-cache.service';
+import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -21,14 +16,7 @@ import {FormsModule} from '@angular/forms';
       HttpClientModule
   ],
   providers: [
-      HttpCacheService,
-      ApiPrefixInterceptor,
-      ErrorHandlerInterceptor,
-      CacheInterceptor,
-      {
-          provide: HttpClient,
-          useClass: HttpService
-      }
+      HttpClientModule
   ]
 })
 

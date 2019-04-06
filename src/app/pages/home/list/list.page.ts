@@ -1,11 +1,11 @@
-import {AfterContentChecked, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {combineLatest, Observable, of, Subject, Subscription} from "rxjs";
-import {select, Store} from "@ngrx/store";
-import {AddNews, FetchNews, FetchNewsByQuery} from "@logic/actions/list.action";
-import {NewsModel} from "@logic/models/news.model";
-import {AppState, getAfter, getNews} from "@logic/store";
-import {debounceTime, delay, distinctUntilChanged, filter, flatMap, map, mergeMap} from "rxjs/operators";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable, Subject, Subscription} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {AddNews, FetchNews, FetchNewsByQuery} from '@logic/actions/list.action';
+import {NewsModel} from '@logic/models/news.model';
+import {AppState, getAfter, getNews} from '@logic/store';
+import {debounceTime, map} from 'rxjs/operators';
 
 @Component({
     selector: 'page-list',
@@ -23,7 +23,7 @@ export class ListPage implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute, private store: Store<AppState>) {
         this.subscriptionValue = this.keyUp.pipe( map(event => event.target), debounceTime(500) )
-            .subscribe((data: any) => {
+            .subscribe((data: HTMLInputElement) => {
                 this.urlParams.query = data.value;
                 this.store.dispatch(new FetchNewsByQuery(this.urlParams));
             });
@@ -35,7 +35,7 @@ export class ListPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.parametersObservable = this.route.params.subscribe((res: any) => {
+        this.parametersObservable = this.route.params.subscribe((res) => {
             this.urlParams.category = res.category;
             this.store.dispatch(new FetchNews(this.urlParams));
 

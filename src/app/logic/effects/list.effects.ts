@@ -10,7 +10,7 @@ import {
     FetchNewsFail,
     FetchNewsSuccess, SetLastItem
 } from '@logic/actions/list.action';
-import {catchError, map, mergeMap, tap, flatMap} from 'rxjs/operators';
+import {catchError, mergeMap, flatMap} from 'rxjs/operators';
 
 @Injectable()
 export class ListEffects {
@@ -19,11 +19,11 @@ export class ListEffects {
         .pipe(ofType(FETCH_NEWS),
             mergeMap((action: FetchNews) => {
                 return this.listService.getNews(action.payload)
-                    .pipe(flatMap((news: any) => [
+                    .pipe(flatMap((news: {data}) => [
                             new FetchNewsSuccess(news.data.children),
                             new SetLastItem(news.data.after)
                         ]),
-                        catchError((error => of(new FetchNewsFail(error))))
+                        catchError((error => of(new FetchNewsFail())))
                     );
             })
         );
@@ -33,11 +33,11 @@ export class ListEffects {
         .pipe(ofType(FETCH_NEWS_BY_QUERY),
             mergeMap((action: FetchNewsByQuery) => {
                 return this.listService.getNewsByQuery(action.payload)
-                    .pipe(flatMap((news: any) => [
+                    .pipe(flatMap((news: {data}) => [
                             new FetchNewsSuccess(news.data.children),
                             new SetLastItem(news.data.after)
                         ]),
-                        catchError((error => of(new FetchNewsFail(error))))
+                        catchError((error => of(new FetchNewsFail())))
                     );
             })
         );
@@ -47,11 +47,11 @@ export class ListEffects {
         .pipe(ofType(ADD_NEWS),
             mergeMap((action: FetchNewsByQuery) => {
                 return this.listService.addNews(action.payload)
-                    .pipe(flatMap((news: any) => [
+                    .pipe(flatMap((news: {data}) => [
                             new AddNewsSuccess(news.data.children),
                             new SetLastItem(news.data.after)
                         ]),
-                        catchError((error => of(new FetchNewsFail(error))))
+                        catchError((error => of(new FetchNewsFail())))
                     );
             })
         );
