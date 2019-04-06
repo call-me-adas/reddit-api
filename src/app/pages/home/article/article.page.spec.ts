@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
-import { ArticlePage } from './list.page';
+import { ArticlePage } from './article.page';
 
 describe('HomeComponent', () => {
     let component: ArticlePage;

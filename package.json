@@ -14,8 +14,8 @@
     "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint",
-    "test": "yarn run env && ng test",
-    "test:ci": "yarn run env && yarn run lint && ng test --code-coverage --watch=false",
+    "test": "ng test",
+    "test:ci": "yarn run lint && ng test --code-coverage --watch=false",
     "e2e": "yarn run env && ng e2e"
   },
   "pre-commit": [],

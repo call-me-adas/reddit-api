@@ -1,63 +1,44 @@
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { CoreModule } from '@shared/core.module';
-import { HttpCacheService } from '@shared/interceptors/http/http-cache.service';
 import { ListService } from './list.service';
 
+
 describe('ListService', () => {
-  let quoteService: ListService;
-  let httpMock: HttpTestingController;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule, HttpClientTestingModule],
-      providers: [HttpCacheService, ListService]
+      providers: [ListService],
+      imports: [HttpClientTestingModule]
     });
-  }));
-
-  beforeEach(inject(
-    [HttpCacheService, ListService, HttpTestingController],
-    (htttpCacheService: HttpCacheService, _quoteService: ListService, _httpMock: HttpTestingController) => {
-      quoteService = _quoteService;
-      httpMock = _httpMock;
-
-      htttpCacheService.cleanCache();
-    }
-  ));
-
-  afterEach(() => {
-    httpMock.verify();
   });
+  describe('ListService', () => {
 
-  describe('getRandomQuote', () => {
-    it('should return a random Chuck Norris list', () => {
-      // Arrange
-      const mockQuote = { value: 'a random list' };
+    function setup() {
+      const listService = TestBed.get(ListService);
+      const httpTestingController = TestBed.get(HttpTestingController);
+      return { listService, httpTestingController };
+    }
 
-      // Act
-      const randomQuoteSubscription = quoteService.getRandomQuote({ category: 'toto' });
-
-      // Assert
-      randomQuoteSubscription.subscribe((quote: string) => {
-        expect(quote).toEqual(mockQuote.value);
+    it('should call the google\'s map data', () => {
+      const { listService, httpTestingController } = setup();
+      const mock = { kind: 'Listing'};
+      listService.getNews({category: 'memes'}).subscribe(data => {
+        console.log(data);
+        expect(data.kind).toEqual(mock);
       });
-      httpMock.expectOne({}).flush(mockQuote);
+
+      const req = httpTestingController.expectOne('https://www.reddit.com/r/memes/new.json');
+      expect(req.request.method).toBe('GET');
+
+
+      req.flush({
+        mapData: mock
+      });
     });
 
-    it('should return a string in case of error', () => {
-      // Act
-      const randomQuoteSubscription = quoteService.getRandomQuote({ category: 'toto' });
-
-      // Assert
-      randomQuoteSubscription.subscribe((quote: string) => {
-        expect(typeof quote).toEqual('string');
-        expect(quote).toContain('Error');
-      });
-      httpMock.expectOne({}).flush(null, {
-        status: 500,
-        statusText: 'error'
-      });
+    afterEach(() => {
+      const { httpTestingController } = setup();
+      httpTestingController.verify();
     });
   });
 });

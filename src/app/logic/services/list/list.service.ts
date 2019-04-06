@@ -11,7 +11,7 @@ interface ListContext {
 }
 
 const routes = {
-  getNews: (c) => `${environment.serverUrl}xxx/r/${c.category}/new.json`,
+  getNews: (c) => `${environment.serverUrl}/r/${c.category}/new.json`,
   addNews: (c) => `${environment.serverUrl}/r/${c.category}/new.json?after=${c.after}`,
   addNewsQuery: (c) => `${environment.serverUrl}/r/${c.category}/search.json?after=${c.after}&q=${c.query}&sort=new`,
   getNewsByQuery: (c) => `${environment.serverUrl}/r/${c.category}/search.json?q=${c.query}&sort=new`
