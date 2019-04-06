@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {combineLatest, Observable, Subscription} from "rxjs";
+import {combineLatest, Observable, of, Subject, Subscription} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {FetchNews} from "@logic/actions/list.action";
+import {AddNews, FetchNews, FetchNewsByQuery} from "@logic/actions/list.action";
 import {NewsModel} from "@logic/models/news.model";
-import {getNews} from "@logic/store";
-import {map} from "rxjs/operators";
+import {AppState, getAfter, getNews} from "@logic/store";
+import {debounceTime, delay, distinctUntilChanged, filter, flatMap, map, mergeMap} from "rxjs/operators";
 
 @Component({
     selector: 'page-list',
@@ -14,24 +14,39 @@ import {map} from "rxjs/operators";
 })
 
 export class ListPage implements OnInit, OnDestroy {
-    category: string;
+    public urlParams: {category: string , query: string, after: string} = {category: '', query: '', after: ''};
     public parametersObservable: Subscription;
     private list$: Observable<NewsModel>;
+    public keyUp = new Subject<KeyboardEvent>();
+    private subscriptionValue: Subscription;
+    public after: string;
 
-    constructor(private route: ActivatedRoute, private store: Store<{}>) {
+    constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+        this.subscriptionValue = this.keyUp.pipe( map(event => event.target), debounceTime(500) )
+            .subscribe((data: any) => {
+                this.urlParams.query = data.value;
+                this.store.dispatch(new FetchNewsByQuery(this.urlParams));
+            });
+
+    }
+
+    onScrollDown() {
+        this.store.dispatch(new AddNews(this.urlParams));
     }
 
     ngOnInit() {
-        this.parametersObservable = combineLatest(this.route.params).subscribe((res) => {
-            this.category = res[0].category;
-            this.store.dispatch(new FetchNews({category: this.category}));
+        this.parametersObservable = this.route.params.subscribe((res: any) => {
+            this.urlParams.category = res.category;
+            this.store.dispatch(new FetchNews(this.urlParams));
 
             this.list$ = this.store.pipe(select(getNews));
+            this.store.pipe(select(getAfter)).subscribe(data => this.urlParams.after = data);
         });
     }
 
     public ngOnDestroy(): void {
         this.parametersObservable.unsubscribe();
+        this.subscriptionValue.unsubscribe();
     }
 
 }

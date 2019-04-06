@@ -4,21 +4,43 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import {environment} from "@env/environment";
 
-const routes = {
-  getNews: (c: ListContext) => `${environment.serverUrl}/r/${c.category}/new.json`
-};
-
-export interface ListContext {
-  category: string;
+interface ListContext {
+  category: string,
+  query?: string,
+  after?: string,
 }
+
+const routes = {
+  getNews: (c) => `${environment.serverUrl}/r/${c.category}/new.json`,
+  addNews: (c) => `${environment.serverUrl}/r/${c.category}/new.json?after=${c.after}`,
+  addNewsQuery: (c) => `${environment.serverUrl}/r/${c.category}/search.json?after=${c.after}&q=${c.query}&sort=new`,
+  getNewsByQuery: (c) => `${environment.serverUrl}/r/${c.category}/search.json?q=${c.query}&sort=new`
+};
 
 @Injectable({ providedIn: 'root' })
 export class ListService {
   constructor(private httpClient: HttpClient) {}
 
   getNews(context: ListContext): Observable<string> {
-    return this.httpClient.cache()
+    return this.httpClient
       .get(routes.getNews(context))
+      .pipe( map((body: any) => body),
+        catchError(() => of('Error, could not load news'))
+      );
+  }
+
+  addNews(context: ListContext): Observable<string> {
+    let MainContext = context.query === '' ? routes.addNews(context) : routes.addNewsQuery(context);
+    return this.httpClient
+      .get(MainContext)
+      .pipe( map((body: any) => body),
+        catchError(() => of('Error, could not load news'))
+      );
+  }
+
+  getNewsByQuery(context: ListContext): Observable<string> {
+    return this.httpClient
+      .get(routes.getNewsByQuery(context))
       .pipe( map((body: any) => body),
         catchError(() => of('Error, could not load news'))
       );

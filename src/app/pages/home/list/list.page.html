@@ -1,8 +1,22 @@
-<div class="container">
-    <mat-card *ngFor="let news of this.list$ | async" class="card-container">
+<div class="container" infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollUpDistance]="1.5"
+     [scrollWindow]="false"
+     (scrolled)="onScrollDown()">
+
+    <mat-card class="card-container">
+            <mat-form-field>
+                <input matInput placeholder="Search" (keyup)='keyUp.next($event)' autocomplete="off">
+            </mat-form-field>
+    </mat-card>
+
+    <mat-card *ngFor="let news of this.list$ | async  | orderBy: 'data.created_utc': true" class="card-container">
         <div fxLayout="row" fxLayoutAlign="space-between">
-            <h2 fxFlex="70%">{{news.data.title}}</h2>
-            <div fxFlex="20%" class="thumbnail-container">
+            <div fxFlex="70%">
+                <h2>{{news.data.title}}</h2>
+                <a class="link" [routerLink]="[news.data.permalink]">See article and coments</a>
+            </div>
+            <div *ngIf="news.data.thumbnail.endsWith('jpg')" fxFlex="20%" class="thumbnail-container">
                 <img src={{news.data.thumbnail}} class="thumbnail" />
             </div>
         </div>

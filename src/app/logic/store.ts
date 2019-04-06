@@ -14,4 +14,5 @@ export const getListState = createFeatureSelector<AppState>('list');
 
 /* News */
 export const getNews = createSelector(getListState, fromList.getNews);
+export const getAfter = createSelector(getListState, fromList.getAfter);
 
