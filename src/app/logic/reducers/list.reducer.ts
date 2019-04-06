@@ -11,19 +11,20 @@ const INITIAL_STATE: State = {
     after: ''
 };
 
+
 export function reducer(state: State = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_NEWS_SUCCESS: {
             return {
                 ...state,
-                news: action.payload
+                news: action.payload.map((item) => item.data)
             };
         }
 
         case ADD_NEWS_SUCCESS: {
             return {
                 ...state,
-                news: [...state.news, ...action.payload]
+                news: [...state.news, ...action.payload.map((item) => item.data)]
             };
         }
 

@@ -10,14 +10,14 @@
             </mat-form-field>
     </mat-card>
 
-    <mat-card *ngFor="let news of this.list$ | async  | orderBy: 'data.created_utc': true" class="card-container">
+    <mat-card *ngFor="let news of this.list$ | async  | orderBy: 'created_utc': true" class="card-container">
         <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex="70%">
-                <h2>{{news.data.title}}</h2>
-                <a class="link" [routerLink]="[news.data.permalink]">See article and coments</a>
+                <h2>{{news.title}}</h2>
+                <a class="link" [routerLink]="['/', news.subreddit, 'comments', news.id+'.json']">See article and coments</a>
             </div>
-            <div *ngIf="news.data.thumbnail.endsWith('jpg')" fxFlex="20%" class="thumbnail-container">
-                <img src={{news.data.thumbnail}} class="thumbnail" />
+            <div *ngIf="news.thumbnail.endsWith('jpg')" fxFlex="20%" class="thumbnail-container">
+                <img src={{news.thumbnail}} class="thumbnail" />
             </div>
         </div>
     </mat-card>

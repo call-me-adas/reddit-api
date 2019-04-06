@@ -7,7 +7,8 @@ import {HomePage} from "@pages/home/home.page";
     imports: [
         SharedModule,
         RouterModule.forRoot([
-            { path: '', loadChildren: './list/list.module#ListModule'}
+            { path: '', loadChildren: './list/list.module#ListModule'},
+            { path: ':category/comments/:id.json', loadChildren: './article/article.module#ArticleModule'},
         ])
     ],
     declarations: [

@@ -1,13 +1,9 @@
 .container {
-  padding: 1rem;
   height: calc(100vh - 80px);
   overflow-y: scroll;
+  width: auto;
   .card-container {
     margin: 1rem;
-    .link {
-      color: black;
-      text-decoration: none;
-    }
     .thumbnail-container {
       display: flex;
       align-items: center;
