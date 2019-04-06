@@ -7,8 +7,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ListPage } from './list.page';
-import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {OrderModule} from "ngx-order-pipe";
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {OrderModule} from 'ngx-order-pipe';
 
 describe('ListPage', () => {
     let component: ListPage;

@@ -7,8 +7,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ArticlePage } from './article.page';
-import {Component, Input} from "@angular/core";
-import {CommentComponent} from "@pages/home/article/comments.component";
+import {Component, Input} from '@angular/core';
+import {CommentComponent} from '@pages/home/article/comments.component';
+
+@Component({
+    selector: 'test-component-comment',
+    template: '<comments [comments]="comments"></comments>'
+})
+class TestCommentComponent {
+    comments = [];
+}
 
 describe('CommentsCompoennt', () => {
     let component: CommentComponent;
@@ -40,10 +48,4 @@ describe('CommentsCompoennt', () => {
 });
 
 
-@Component({
-    selector: 'test-component-comment',
-    template: '<comments [comments]="comments"></comments>'
-})
-class TestCommentComponent {
-    comments = [];
-}
+

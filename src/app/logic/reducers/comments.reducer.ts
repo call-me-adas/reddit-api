@@ -7,7 +7,7 @@ export interface State {
     comments: CommentModel;
 }
 
-const INITIAL_STATE: State = {
+export const INITIAL_STATE: State = {
     article: null,
     comments: null
 };

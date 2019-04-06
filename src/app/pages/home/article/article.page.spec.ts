@@ -7,9 +7,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@shared/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ArticlePage } from './article.page';
-import {CommentComponent} from "@pages/home/article/comments.component";
-import {By} from "@angular/platform-browser";
-import {DebugElement} from "@angular/core";
+import {CommentComponent} from '@pages/home/article/comments.component';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
 describe('ArticlePage', () => {
     let component: ArticlePage;

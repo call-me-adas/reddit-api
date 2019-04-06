@@ -1,6 +1,6 @@
 import {getTestBed, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {ListService} from "@logic/services/list/list.service";
+import {ListService} from '@logic/services/list/list.service';
 
 describe('List service', () => {
   let injector: TestBed;

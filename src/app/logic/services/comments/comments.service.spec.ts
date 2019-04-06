@@ -1,6 +1,6 @@
 import {getTestBed, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {CommentsService} from "@logic/services/comments/comments.service";
+import {CommentsService} from '@logic/services/comments/comments.service';
 
 describe('Comments service', () => {
     let injector: TestBed;
@@ -31,7 +31,6 @@ describe('Comments service', () => {
         };
 
         service.getArticleComments({category: 'Awww', id: 'ba5f1v'}).subscribe((res: {kind}) => {
-            console.log(res);
             expect(res.kind).toEqual(mock.kind);
         });
 

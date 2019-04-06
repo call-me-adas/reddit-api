@@ -26,10 +26,10 @@ export class ListService {
 
   addNews(context: ListContext): Observable<Object> {
     const MainContext = context.query === '' ? routes.addNews(context) : routes.addNewsQuery(context);
-    return this.httpClient.get(MainContext)
+    return this.httpClient.get(MainContext);
   }
 
   getNewsByQuery(context: ListContext): Observable<Object> {
-    return this.httpClient.get(routes.getNewsByQuery(context))
+    return this.httpClient.get(routes.getNewsByQuery(context));
   }
 }

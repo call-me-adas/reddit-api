@@ -6,8 +6,8 @@ export interface State {
     after: string;
 }
 
-const INITIAL_STATE: State = {
-    news: null,
+export const INITIAL_STATE: State = {
+    news: [],
     after: ''
 };
 
